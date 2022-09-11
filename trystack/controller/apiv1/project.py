@@ -4,7 +4,7 @@ from trystack.trystack import db
 from trystack.decorators import content_type_required
 from trystack.model import Project
 from trystack.schema.apiv1 import ProjectSchema
-from trystack.util import jsonify
+from trystack.util import jsonify, now
 
 
 class ProjectController:
@@ -95,6 +95,7 @@ class ProjectController:
             return jsonify(status=404)
 
         project.status = request_data['status']
+        project.last_updated_at = now()
         try:
             db.session.commit()
         except Exception as e:
