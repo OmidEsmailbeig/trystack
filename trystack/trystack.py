@@ -6,7 +6,6 @@ from flask_sqlalchemy import SQLAlchemy
 import json
 
 from .config import Config
-from . import resource
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -18,6 +17,8 @@ apiv1_bp = Blueprint(
         url_prefix='/api/v1'
     )
 apiv1 = Api(apiv1_bp)
+
+from . import resource
 
 
 def create_app(config_file=None):
