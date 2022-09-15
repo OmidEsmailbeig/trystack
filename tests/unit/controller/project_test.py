@@ -4,6 +4,17 @@ import pytest
 TEST_PROJECT_ID = None
 
 
+@pytest.fixture(autouse=True, scope='module')
+def setup_and_teardown(client):
+    # Add setup codes here if needed
+    yield setup_and_teardown
+    if TEST_PROJECT_ID is not None:
+        client.delete(
+            f'/api/v1/projects/{TEST_PROJECT_ID}',
+            headers={'Content-Type': 'application/json'}
+        )
+
+
 @pytest.mark.parametrize(
     ('headers', 'data', 'status'),
     [
