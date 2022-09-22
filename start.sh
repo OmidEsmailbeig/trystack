@@ -1,0 +1,5 @@
+#!/bin/sh
+
+flask db upgrade
+
+gunicorn -b 0.0.0.0:8080 -w 2 --access-logfile - --error-logfile -"trystack:create_app()"
